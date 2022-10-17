@@ -1,4 +1,5 @@
-# Advance-Android-Odd-
+# Ex.No:1 To create a database table and to display the database table field using SQLite Database in Android Studio.
+
 # Ex.No: 1 To create a database table and to display the database table field using SQLite Database in Android Studio.
 
 ## AIM:
@@ -7,12 +8,15 @@ To create a database table and to display the database table field using SQLite 
 
 ## EQUIPMENTS REQUIRED:
 
+Android Studio(Min.required Artic Fox)
 Android Studio(Min.required Arctic Fox)
 
 ## ALGORITHM:
 
+Step 1: Open Android Stdio and then click on File -> New -> New project.
 Step 1: Open Android Studio and then click on File -> New -> New project.
 
+Step 2: Then type the Application name as HelloWorld and click Next. 
 Step 2: Then type the Application name as sqllite and click Next. 
 
 Step 3: Then select the Minimum SDK as shown below and click Next.
@@ -21,16 +25,19 @@ Step 4: Then select the Empty Activity and click Next. Finally click Finish.
 
 Step 5: Design layout in activity_main.xml.
 
+Step 6: Display message give in MainActivity file.
 Step 6: Enter the code in MainActivity file.
 
 Step 7: Save and run the application.
 
-
+<br><br><br><br><br><br><br><br><br>
 
 ## PROGRAM:
 ```
 /*
 Program to print the DatabaseTable using the SQLite”.
+Developed by:
+Registeration Number :
 Developed by        : SAFA
 Registration Number : 212220230040
 */
@@ -38,9 +45,7 @@ Registration Number : 212220230040
 ### MainActivity.java
 ```
 package com.example.database;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -48,12 +53,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 public class MainActivity extends AppCompatActivity {
     EditText editUserID;
     EditText editUserName;
     EditText editUserPassword;
-
     DatabaseManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         editUserID= findViewById(R.id.editTextID);
         editUserName=findViewById(R.id.editTextUserName);
         editUserPassword=findViewById(R.id.editTextPassword);
-
         dbManager=new DatabaseManager(this);
         try{
             dbManager.open();
@@ -74,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     public void btnInsertPressed(View v){
         dbManager.insert(editUserName.getText().toString(),editUserPassword.getText().toString());
     }
-
     public void btnFetchPressed(View v){
         Cursor cursor=dbManager.fetch();
         if (cursor.moveToFirst())
@@ -87,32 +88,29 @@ public class MainActivity extends AppCompatActivity {
             }while(cursor.moveToNext());
         }
     }
-
     public void btnUpdatePressed(View v){
         dbManager.update(Long.parseLong(editUserID.getText().toString()),editUserName.getText().toString(),editUserPassword.getText().toString());
     }
-
     public void btnDeletePressed(View v){
         dbManager.delete(Long.parseLong(editUserID.getText().toString()));
     }
 }
 ```
+
+<br><br><br><br><br><br><br><br><br><br>
+
 ### DatabaseManager.java
 ```
 package com.example.database;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.sql.SQLDataException;
-
 public class DatabaseManager {
     private DatabaseHelper dbHelper;
     private Context context;
     private SQLiteDatabase database;
-
     public DatabaseManager(Context ctx){
         context=ctx;
     }
@@ -147,39 +145,30 @@ public class DatabaseManager {
     }
     public void delete(long id){
         database.delete(DatabaseHelper.DATABASE_TABLE,DatabaseHelper.USER_ID,null);
-
     }
-
 }
 ```
 ### DatabaseHelper.java
 ```
 package com.example.database;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME="DataBASE.DB";
     static final int DATABASE_VERSION=1;
-
     static final String DATABASE_TABLE= "USERS";
     static final String USER_ID= "_ID";
     static final String USER_NAME="user_name";
     static final String USER_PASSWORD="password";
-
     private static final String CREATE_DB_QUERY = "CREATE TABLE "+DATABASE_TABLE +" ( "+ USER_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "+USER_NAME+ " TEXT NOT NULL,   "+ USER_PASSWORD+ " TEXT NOT NULL );";
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_DB_QUERY);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_TABLE);
@@ -196,7 +185,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".MainActivity">
-
     <EditText
         android:id="@+id/editTextUserName"
         android:layout_width="wrap_content"
@@ -206,17 +194,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:hint="User Name"
-
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:backgroundTint="#FFFFFF"
-
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextID" />
-
     <EditText
         android:id="@+id/editTextID"
         android:layout_width="wrap_content"
@@ -225,11 +210,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         android:ems="10"
         android:hint="User ID"
         android:inputType="textPersonName"
-
         android:minHeight="48dp"
         android:textAlignment="center"
         android:textColor="@color/white"
-
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -237,19 +220,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.144" />
-
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/background_light"
-
         android:ems="10"
         android:hint="User Password"
         android:inputType="textPassword"
-
-
         android:minHeight="48dp"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -258,24 +237,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="btnFetchPressed"
         android:text="Fetch"
-
         android:background="@color/cardview_dark_background"
         android:backgroundTintMode="multiply"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.475" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -284,41 +259,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         android:text="Insert"
         android:background="@color/cardview_dark_background"
         android:backgroundTintMode="multiply"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.475" />
-
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="btnUpdatePressed"
         android:text="Update"
-
         android:background="@color/cardview_dark_background"
         android:backgroundTintMode="multiply"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.896"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.475" />
-
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="btnDeletePressed"
         android:text="Delete"
-
         android:background="@color/cardview_dark_background"
         android:backgroundTintMode="multiply"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -329,21 +297,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 ```
 ## OUTPUT:
 
-![image](https://user-images.githubusercontent.com/75235209/190847548-7264d987-1213-49c1-94fb-ab80edc4a818.png)
+![bhavya mb exp-1 ss1](https://user-images.githubusercontent.com/75235293/190849355-756b2831-da3f-4d88-a43a-881ea9be4c46.jpg)
+
+
 <br><br><br><br><br><br>
 
-### Insert!
-![image](https://user-images.githubusercontent.com/75235209/190847962-9db7f8d0-e962-442e-b565-65d097e7a854.png)
+### Insert
+![bhavya mb exp-1 ss2](https://user-images.githubusercontent.com/75235293/190849378-8e43418a-3bd6-4235-baf7-65ab15aca17b.jpg)
+
 
 ### Fetch
-![image](https://user-images.githubusercontent.com/75235209/190847706-73d2e5be-c06a-4071-a4d9-e83ca459ece7.png)
+![bhavya mb exp-1 ss3](https://user-images.githubusercontent.com/75235293/190849391-b14c654d-a839-41a9-a4d2-78c71ada3b74.jpg)
+
+## OUTPUT
 
 <br><br><br><br>
 
 ### Update
-![image](https://user-images.githubusercontent.com/75235209/190847727-64100e0d-420c-46a1-b687-e4e0d9d91828.png)
-![image](https://user-images.githubusercontent.com/75235209/190847739-64628b6a-b47d-4bb2-91bc-3ad1bd60d5e2.png)
+![bhavya mb exp-1 ss4](https://user-images.githubusercontent.com/75235293/190849423-239bd0f9-e6db-4177-9197-38681ac6093a.jpg)
 
 
+## RESULT
+Thus a Simple Android Application create a dtatabase table and to display the database table  using SQLite Database in Android Studio is developed and executed successfully.
 ## RESULT:
-Thus, a Simple Android Application to create a database table and to display the database table using SQLite Database in Android Studio is developed and executed successfully
+Thus, a Simple Android Application to create a database table and to display the database table using SQLite Database in Android Studio is developed and executed successfully.
